@@ -3,6 +3,7 @@ const app=exprees();
 const apirouter=require('./routes/index');
 const connecttodb = require('./config/db.config');
 const bodyparser=require('body-parser');
+const {PORT}=require('./config/server.config');
 app.use(bodyparser.json());
 app.use(bodyparser.text());
 app.get('/',(req,res)=>{
@@ -10,7 +11,7 @@ app.get('/',(req,res)=>{
 })
 app.use('/api',apirouter);
 
-app.listen(3001,(req,res)=>{
+app.listen(PORT,(req,res)=>{
     console.log("server is running");
     connecttodb();
 })
