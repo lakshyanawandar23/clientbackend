@@ -8,19 +8,24 @@
 async function signup(req,res){
     console.log(req.body);
      const {name,email,phone,adhaar,address}=req.body;
-     const resp=await Signup.create({
-           name,
-           email,
-           adhaar,
-           phone,
-           address
-     })
-     console.log(resp);
-     return res.status(201).json({
-        error:"",
-        messsage:"User Successfullly registered",
-        data:resp
-     })
+     try{
+        const resp=await Signup.create({
+            name,
+            email,
+            adhaar,
+            phone,
+            address
+      })
+      console.log(resp);
+      return res.status(201).json({
+         error:"",
+         messsage:"User Successfullly registered",
+         data:resp
+      })
+     }
+      catch(error){
+        return res.status(400).json("error");
+      }
 }
 async function otpgene(req,res){
     const { email } = req.body;
