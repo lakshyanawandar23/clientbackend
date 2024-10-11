@@ -11,6 +11,8 @@ const SignupSchema=new mongoose.Schema({
     },
     email:{
         type:String,
+        index:true,
+        unique:true,
         required:[true,"cannot be empty"]
     },
     address:{
@@ -19,6 +21,11 @@ const SignupSchema=new mongoose.Schema({
     },
     adhaar:{
         type:String,
+        required:[true,"cannot be empty"]
+    },
+    role:{
+        type:String,
+        default:"User",
         required:[true,"cannot be empty"]
     }
 })

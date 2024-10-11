@@ -8,6 +8,10 @@
 async function signup(req,res){
     console.log(req.body);
      const {name,email,phone,adhaar,address}=req.body;
+     const user=await Signup.findOne({email});
+     if(user){
+        return res.status(409).json("User already exist ");
+     }
      try{
         const resp=await Signup.create({
             name,
@@ -67,13 +71,13 @@ async function otpverify(req,res){
         const otpRecord = await OTP.findOne({ email, otp });
 
         if (otpRecord) {
-            res.status(200).send('OTP verified successfully');
+            res.status(200).json('OTP verified successfully');
         } else {
-            res.status(400).send('Invalid OTP');
+            res.status(400).json('Invalid OTP');
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error verifying OTP');
+        res.status(500).json('Error verifying OTP');
     }
 }
 
