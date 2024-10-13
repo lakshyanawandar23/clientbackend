@@ -52,7 +52,11 @@ async function otpgene(req,res){
             from: 'manishnehra352@gmail.com',
             to: email,
             subject: 'OTP Verification',
-            text: `Your OTP for verification is: ${otp}`
+            text: `Hello,
+You got a new message from xchange
+Please verfiy your account by filling Otp: ${otp}
+Best Wishes
+EmailJS Team`
         });
 
         res.status(200).send({
