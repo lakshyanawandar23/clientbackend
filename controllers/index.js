@@ -2,6 +2,7 @@
  const OTP=require('../models/otpmodel');
  const otpGenerator=require('otp-generator');
  const nodemailer=require('nodemailer');
+const BankDetails = require('../models/bankmodel');
  function ping(req,res){
    return  res.send("ping check");
 }
@@ -84,10 +85,49 @@ async function otpverify(req,res){
         res.status(500).json('Error verifying OTP');
     }
 }
-
+async function getusers(req,res){
+    const resp=await Signup.find({});
+    res.status(200).json(resp);
+}
+async function bankdetails(req,res){
+    console.log(req.body)
+    const {accountHolder,accountNumber,bankName,ifscCode}=req.body;
+    try{
+    const resp=await BankDetails.create({
+         accountHolder,
+         accountNumber,
+         ifscCode,
+         bankName,
+    })
+    console.log(resp);
+   return res.status(201).json("Bank Details added")
+}
+   catch(error){
+    if (error.name === 'ValidationError') {
+        // Send a list of validation errors
+        const errors = Object.values(error.errors).map(el => el.message);
+        return res.status(400).json({ errors });
+    }
+    res.status(500).json({ error: 'Something went wrong', details: error.message })
+   }
+}
+ async function getbankdetils(req,res){
+    try{
+    const resp=await BankDetails.find({});
+    return res.status(200).json({
+        data:resp
+    })    
+}
+    catch(error){
+        return res.status(400).json("Try again");
+    }
+ }
 module.exports={
     ping,
     signup,
     otpgene,
-    otpverify
+    otpverify,
+    getusers,
+    bankdetails,
+    getbankdetils
 }

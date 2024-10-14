@@ -7,7 +7,7 @@ async  function connecttodb(){
             useNewUrlParser: true,
             useUnifiedTopology: true,
        //     serverSelectionTimeoutMS: 5000, // Reduce server selection timeout
-            socketTimeoutMS: 45000,         // Adjust socket timeout
+        //    socketTimeoutMS: 45000,         // Adjust socket timeout
         });
     console.log("connect to db");
     } catch (e) {

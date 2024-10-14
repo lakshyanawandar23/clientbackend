@@ -19,10 +19,6 @@ const SignupSchema=new mongoose.Schema({
         type:String,
         required:[true,"cannot be empty"]
     },
-    adhaar:{
-        type:String,
-        required:[true,"cannot be empty"]
-    },
     role:{
         type:String,
         default:"User",
