@@ -4,6 +4,8 @@ const apirouter=require('./routes/index');
 const connecttodb = require('./config/db.config');
 const bodyparser=require('body-parser');
 const {PORT}=require('./config/server.config');
+const cors=require('cors');
+app.use(cors());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 app.use(bodyparser.text());
