@@ -1,6 +1,7 @@
  const Signup=require('../models/signup')
  const bcrypt=require('bcryptjs');
 const BankDetails = require('../models/bankmodel');
+const Trans = require('../models/Transmodel');
  function ping(req,res){
    return  res.send("ping check");
 }
@@ -90,11 +91,41 @@ async function bankdetails(req,res){
         return res.status(400).json("Try again");
     }
  }
+ async function settransaction(req,res){
+    console.log(req.body);
+    const {transactionid,rate}=req.body;
+    try {
+        const resp=await Trans.create({
+          transactionid,
+          rate
+        })
+        return res.status(201).json("Updated succesfully");
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({
+            message:"Try agian",
+            error
+        })
+    }
+ }
+  async function gettransaction(req,res) {
+    try{
+        const resp=await Trans.findOne().sort({ createdAt: -1 })  // -1 for descending order (latest first)               // Optional: To limit the number of documents
+       return res.status(200).json(resp);
+    
+    } catch(err) {
+          console.error(err);
+          res.json("Try again");
+        }
+    
+  }
 module.exports={
     ping,
     signup,
     getusers,
     bankdetails,
     getbankdetils,
-    login
+    login,
+    settransaction,
+    gettransaction,
 }
