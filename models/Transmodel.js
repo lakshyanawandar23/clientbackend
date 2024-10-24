@@ -3,11 +3,9 @@ const mongoose=require('mongoose');
 const Transchema=new mongoose.Schema({
     transactionid :{
         type:String,
-        required:[true,"cannot be empty"]
     },
     rate:{
         type:String,
-        required:[true,"cannot be empty"]
     },
     createdAt: {
     type: Date,
